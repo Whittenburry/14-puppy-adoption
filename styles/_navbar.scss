@@ -1,0 +1,36 @@
+.navbar-container {
+  margin: 0;
+  padding: $gutter;
+
+  background: $brand-primary;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  width: $max-content-width;
+
+  margin: auto;
+
+  &__puppies {
+    margin: 0;
+    padding: $gutter;
+
+    color: $brand-white;
+  }
+
+  &__button {
+    align-self: center;
+
+    border: 0;
+    background: $brand-primary;
+    color: $brand-white;
+
+    &:hover {
+      color: $brand-black;
+      cursor: pointer;
+    }
+  }
+}

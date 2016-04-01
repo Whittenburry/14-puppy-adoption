@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+
+  font-family: sans-serif;
+}
+
+h6 {
+  margin: $gutter;
+}
+
+p {
+  margin: 0 $gutter;
+}
+
+input {
+  outline: 0;
+}
+
+button {
+  outline: 0;
+}
