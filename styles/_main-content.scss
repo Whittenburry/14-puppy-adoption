@@ -47,11 +47,14 @@
 
 .info {
 
-  &__description {
+  padding: 0 $gutter;
 
+  &__description {
+    margin: $gutter 0;
   }
 
   &__user-text {
+    width: 100%;
     border-bottom: $brand-border;
 
   }
