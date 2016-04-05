@@ -9,7 +9,7 @@ export default class PuppyView {
     this.element.classList.add(`main-content`);
     this.element.innerHTML = `
       <div class="content-container">
-        <div class="content-container__img"><img class="puppy-pic" src="" alt=""></div>
+        <div class="content-container__img"><img class="puppy-pic" src="" alt="p"></div>
         <div class="content-container__info">
           <div class="info">
             <h6 class="info__description">Name</h6>
@@ -28,13 +28,46 @@ export default class PuppyView {
             <input value="" class="info__user-text profile"></input>
           </div>
           <div class="buttons-container">
-            <button class="buttons-container__button">Delete</button>
-            <button class="buttons-container__button">Update</button>
+            <button class="buttons-container__button destroy">Delete</button>
+            <button class="buttons-container__button update">Update</button>
           </div>
         </div>
       </div>`;
 
     this.render();
+    this.listenForDelete();
+    this.updatePuppy();
+  }
+
+  listenForDelete() {
+    this.element.querySelector(`.destroy`).addEventListener(`click`, () => {
+      if (window.confirm(`Are you sure?`)) {
+        fetch(`http://tiny-tn.herokuapp.com/collections/jw-puppy/${this.puppy._id}`, {
+          method: `Delete`
+        }).then(() => {
+          this.app.remove(this.puppy);
+        });
+      }
+    });
+  }
+
+  updatePuppy() {
+    const puppiesUpdated = document.querySelector(`input`).value;
+
+    fetch(`http://tiny-tn.herokuapp.com/collections/jw-puppy/${this.puppy._id}`, {
+      method: `Put`,
+      headers: {
+        Accept: `application/json`,
+        'Content-type': `application/json`,
+      },
+      body: JSON.stringify({...this.puppy, puppiesUpdated})
+    }).then((response) => {
+      return response.json();
+    }).then((updatedPuppy) => {
+      Object.assign(this.puppy, updatedPuppy);
+
+      this.render();
+    })
   }
 
   render() {
