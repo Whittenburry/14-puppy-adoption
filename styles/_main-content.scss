@@ -11,7 +11,7 @@
 }
 
 .row {
-  width: $max-content-width;
+  max-width: $max-content-width;
 
   margin: $gutter auto;
 }

@@ -20,7 +20,7 @@
 }
 
 .dropdown-container {
-  width: $max-content-width;
+  max-width: $max-content-width;
 
   margin: auto;
 }
