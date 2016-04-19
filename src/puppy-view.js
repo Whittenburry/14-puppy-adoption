@@ -10,7 +10,7 @@ export default class PuppyView {
     this.element.innerHTML = `
       <div class="content-container">
         <div class="content-container__img"><img class="puppy-pic" src="" alt="p"></div>
-        <div class="content-container__info">
+        <form class="content-container__info">
           <div class="info">
             <h6 class="info__description">Name</h6>
             <input value="" class="info__user-text name"></input>
@@ -31,16 +31,18 @@ export default class PuppyView {
             <button class="buttons-container__button destroy">Delete</button>
             <button class="buttons-container__button update">Update</button>
           </div>
-        </div>
+        </form>
       </div>`;
 
     this.render();
     this.listenForDelete();
-    this.updatePuppy();
+    this.listenForUpdate();
   }
 
   listenForDelete() {
-    this.element.querySelector(`.destroy`).addEventListener(`click`, () => {
+    this.element.querySelector(`.destroy`).addEventListener(`click`, (ev) => {
+      ev.preventDefault();
+
       if (window.confirm(`Are you sure?`)) {
         fetch(`http://tiny-tn.herokuapp.com/collections/jw-puppy/${this.puppy._id}`, {
           method: `Delete`
@@ -51,16 +53,29 @@ export default class PuppyView {
     });
   }
 
+  listenForUpdate() {
+    this.element.querySelector(`.content-container__info`).addEventListener(`submit`, (ev) => {
+      ev.preventDefault();
+
+      this.updatePuppy();
+    });
+  }
+
   updatePuppy() {
-    const puppiesUpdated = document.querySelector(`input`).value;
+    const vals = {
+      name: this.element.querySelector(`.name`).value,
+      age: this.element.querySelector(`.age`).value,
+      photoUrl: this.element.querySelector(`.photo-url`).value,
+      profile: this.element.querySelector(`.profile`).value,
+    };
 
     fetch(`http://tiny-tn.herokuapp.com/collections/jw-puppy/${this.puppy._id}`, {
-      method: `Put`,
+      method: `PUT`,
       headers: {
         Accept: `application/json`,
         'Content-type': `application/json`,
       },
-      body: JSON.stringify({...this.puppy, puppiesUpdated})
+      body: JSON.stringify({...this.puppy, ...vals})
     }).then((response) => {
       return response.json();
     }).then((updatedPuppy) => {

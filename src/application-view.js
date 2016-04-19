@@ -34,7 +34,7 @@ export default class ApplicationView {
   }
 
   remove(puppy) {
-    this.data = this.data.filter((current) => {
+    this.puppies = this.puppies.filter((current) => {
       return current !== puppy;
     });
     this.render();

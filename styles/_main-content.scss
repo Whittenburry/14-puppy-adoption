@@ -45,6 +45,11 @@
   }
 }
 
+.puppy-pic {
+  width: 20.9rem;
+  height: 19rem;
+}
+
 .info {
 
   padding: 0 $gutter;
@@ -66,9 +71,9 @@
   justify-content: space-between;
 
   &__button {
-    padding: $gutter;
-
     margin: $gutter;
+
+    padding: $gutter;
 
     border: 0;
     border-radius: 0.25rem;
